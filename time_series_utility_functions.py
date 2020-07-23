@@ -1,5 +1,3 @@
-# Time series lags
-
 import numpy as np
 import pandas as pd
 
