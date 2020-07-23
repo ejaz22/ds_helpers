@@ -17,6 +17,9 @@ def create_dataset(data, look_back=1):
     """
     this function takes numpy array as input and 
     returns two numpy array output
+    Usage: # trainX is input, trainY is expected output
+    trainX, trainY = create_dataset(train, look_back)      
+    testX, testY = create_dataset(test, look_back)
     """
     
     X,Y = [], []
