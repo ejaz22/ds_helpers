@@ -9,7 +9,11 @@ def ts_lags(df, lag=1):
     df = pd.concat(cols,axis=1)
     df.fillna(0, inplace=True)
     return df
-    
+
+
+# Lagging value by one row
+df['previous_days_stock_prize']=df["stock_prize"].shift(1)
+
 
 #2 ceated datasets for time series lstm based models
 def create_dataset(data, look_back=1):
@@ -29,3 +33,32 @@ def create_dataset(data, look_back=1):
         X.append(data[i:(i+look_back)])
         Y.append(data[i + look_back])   
     return np.array(X), np.array(Y)
+
+# describe/analyse data
+def describe_data(df):
+    """
+    this function takes pandas dataframe as an argument
+    and returns analysis
+    """
+    
+    # describe missing, unique and data_types
+    print("1. GENERAL DESCRIPTION")
+    summ = pd.DataFrame(df.dtypes,columns=['Data_Types'])
+    summ = summ.reset_index()
+    summ['Columns'] = summ['index']
+    summ = summ[['Columns','Data_Types']]
+    summ['Missing'] = df.isnull().sum().values    
+    summ['Uniques'] = df.nunique().values
+    print(summ, end='\n\n\n')
+    
+    
+    # nulls analysis
+    print("2. NULLS VALUES ANALYSIS")
+    nulls = df.isnull().sum()
+    nulls = nulls[df.isnull().sum()>0].sort_values(ascending=False)
+    nulls_report = pd.concat([nulls, nulls / df.shape[0]], axis=1, keys=['Missing_Values','Missing_Ratio'])
+    print(nulls_report,end='\n\n\n')
+    
+    # describe stats
+    print("3. STATISTICS")
+    print(df.describe().T,end='\n\n\n')
