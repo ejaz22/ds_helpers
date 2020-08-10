@@ -9,9 +9,9 @@ def describe_data(df,target_var=None):
     this function takes pandas dataframe as an argument
     and returns several analysis on dataset 
     """
-    
-    if not isinstance(df, pd.DataFrame):
-        raise Exception ("Not a pandas dataframe")
+    if df.__class__.__name__ != 'DataFrame':
+            raise Exception('Error: object is not a pandas DataFrame.')
+            
     
     # set display of numbers
     pd.set_option('precision', 2)
