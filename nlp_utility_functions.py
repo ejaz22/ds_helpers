@@ -17,23 +17,20 @@ import math
 import re
 from collections import Counter
 
+# get cosine similarity
 def get_cosine(text1, text2):
-    WORD = re.compile(r"\w+")
-    vec1 = Counter(WORD.findall(text1))
-    vec2 = Counter(WORD.findall(text2))
+    w = re.compile(r"\w+")
+    vec1 = Counter(w.findall(text1))
+    vec2 = Counter(w.findall(text2))
     intersection = set(vec1.keys()) & set(vec2.keys())
     numerator = sum([vec1[x] * vec2[x] for x in intersection])
-
     sum1 = sum([vec1[x] ** 2 for x in list(vec1.keys())])
     sum2 = sum([vec2[x] ** 2 for x in list(vec2.keys())])
     denominator = math.sqrt(sum1) * math.sqrt(sum2)
+    return 0.0 if not denominator else float(numerator) / denominator
 
-    if not denominator:
-        return 0.0
-    else:
-        return float(numerator) / denominator
     
-    
+   
  # cosine similary to compare two documents
 import math
 import re
