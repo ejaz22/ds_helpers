@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-
 from statsmodels.stats.outliers_influence import variance_inflation_factor as vif
 
 # get varinace inflation factor
@@ -12,7 +11,7 @@ def get_vif(X):
     for every variable.
     """
     
-    if isinstance(data, pd.DataFrame) == False:
+    if isinstance(X, pd.DataFrame) == False:
         X = pd.DataFrame(X)
     
     X['__INTERCEPT'] = np.ones(X.shape[0])
@@ -54,6 +53,7 @@ def create_dataset(data, look_back=1):
         X.append(data[i:(i+look_back)])
         Y.append(data[i + look_back])   
     return np.array(X), np.array(Y)
+
 
 # describe/analyse data
 def describe_data(df):
