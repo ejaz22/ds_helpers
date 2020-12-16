@@ -1,3 +1,17 @@
+
+# print False Postive and False Negative samples
+def print_fp_fn_samples(test_y, test_y_pred, test_txt):
+
+    i_lst_fp = [i for i in xrange(len(test_y)) if test_y[i] == 0 and test_y_pred[i] == 1]
+    i_lst_fn = [i for i in xrange(len(test_y)) if test_y[i] == 1 and test_y_pred[i] == 0]
+    print '\nfalse positive'
+    for i in i_lst_fp[:20]:
+        print i, test_y[i], ':', test_txt[i]
+    print 'false negative'
+    for i in i_lst_fn[:20]:
+        print i, test_y[i], ':', test_txt[i]
+        
+        
 # perform TSNE
 def perform_tsne(X, y, perplexity=100, learning_rate=200, n_components=2):
     tsne = TSNE(n_components=n_components, init='random',
