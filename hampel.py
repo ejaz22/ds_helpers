@@ -1,3 +1,4 @@
+# hampel filter for smoothening of time series data
 import numpy as np
 import pandas as pd
 
