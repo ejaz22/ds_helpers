@@ -1,6 +1,17 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from statsmodels.stats.outliers_influence import variance_inflation_factor as vif
+
+
+def plot_results(predicted_data, true_data):
+    fig = plt.figure(facecolor='white')
+    ax = fig.add_subplot(111)
+    ax.plot(true_data, label='True Data')
+    plt.plot(predicted_data, label='Prediction')
+    plt.legend()
+    plt.show()
+
 
 def find_null_columns(df):
     """
