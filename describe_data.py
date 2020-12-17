@@ -2,6 +2,18 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import CategoricalDtype
 
+def pandas_df_to_markdown_table(df):
+    """
+    Modeled on https://stackoverflow.com/a/33869154
+    License
+    -------
+    GNU-GPLv3, (C) A. R.
+    (https://github.com/poplarShift/python-data-science-utils)
+    """
+    fmt = ['---' for i in range(len(df.columns))]
+    df_fmt = pd.DataFrame([fmt], columns=df.columns)
+    df_formatted = pd.concat([df_fmt, df])
+    return df_formatted.to_csv(sep="|", index=False)
 
 def display_all(df, rows=10, columns=1000):
     """
