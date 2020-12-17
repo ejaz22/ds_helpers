@@ -3,7 +3,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.stats.outliers_influence import variance_inflation_factor as vif
 
+# frame a sequence as a supervised learning problem
+def timeseries_to_supervised(data, lag=1):
+	df = DataFrame(data)
+	columns = [df.shift(i) for i in range(1, lag+1)]
+	columns.append(df)
+	df = concat(columns, axis=1)
+	df.fillna(0, inplace=True)
+	return df
 
+# Plot predicted vs actual
 def plot_results(predicted_data, true_data):
     fig = plt.figure(facecolor='white')
     ax = fig.add_subplot(111)
@@ -11,6 +20,13 @@ def plot_results(predicted_data, true_data):
     plt.plot(predicted_data, label='Prediction')
     plt.legend()
     plt.show()
+    
+# make a one-step forecast
+def forecast_lstm(model, batch_size, X):
+	X = X.reshape(1, 1, len(X))
+	yhat = model.predict(X, batch_size=batch_size)
+	return yhat[0,0]
+
 
 
 def find_null_columns(df):
