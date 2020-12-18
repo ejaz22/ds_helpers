@@ -2,6 +2,14 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import CategoricalDtype
 
+# downcast dataframe to save memory usage
+def downcast_dtypes(df):
+    float_cols = [c for c in df if df[c].dtype == "float64"]
+    int_cols = [c for c in df if df[c].dtype in ["int64", "int32"]]
+    df[float_cols] = df[float_cols].astype(np.float32)
+    df[int_cols] = df[int_cols].astype(np.int16)
+    return df
+
 # PLOT CORRELATIONS
 def plot_chi2_heatmap(df, columns_to_compare):
     # columns_to_compare e.g. df.columns.values
