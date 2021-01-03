@@ -1,4 +1,6 @@
 import math
+import numpy as np
+import pandas as pd
 
 def mean(x): 
     return sum(x) / len(x)
@@ -58,3 +60,35 @@ def correlation(x, y):
         return covariance(x, y) / stdev_x / stdev_y
     else:
         return 0 # if no variation, correlation is zero
+
+    # Define power trnnsformations and their inverses
+# Square root transformation
+def square_root_transformation(x: pd.Series) -> pd.Series:
+    return np.sqrt(x)
+
+def square_root_inverse_transformation(x: pd.Series) -> pd.Series:
+    return np.square(x)
+
+# Cube root transformation
+def cube_root_transformation(x: pd.Series) -> pd.Series:
+    return x ** (1 / 3)
+
+def cube_root_inverse_transformation(x: pd.Series) -> pd.Series:
+    return x ** 3
+
+# Log transformation
+def log_transformation(x: pd.Series) -> pd.Series:
+    # Function np.log1p = log(x + 1)
+    return np.log1p(x)
+
+def log_inverse_transformation(x: pd.Series) -> pd.Series:
+    # Function np.expm1(x) = exp(x) - 1
+    return np.expm1(x)
+
+# Box-cox transformation
+def box_cox_transformation(x: pd.Series) -> Tuple[np.array, float]:
+    x_transformed, lambda_value = stats.boxcox(x)
+    return x_transformed, lambda_value
+    
+def box_cox_inverse_transformation(x: pd.Series, lambda_value: float) -> pd.Series:
+    return inv_boxcox(x, lambda_value)
