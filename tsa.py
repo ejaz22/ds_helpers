@@ -3,6 +3,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.stats.outliers_influence import variance_inflation_factor as vif
 
+def build_temporal_features(data: pd.DataFrame,dt_var=None):
+    # Temporal features
+    data['date'] = pd.to_datetime(data[dt_var])
+    data['year'] = data['date'].dt.year
+    data['month'] = data['date'].dt.month
+    data['week'] = data['date'].dt.week
+    data['day'] = data['date'].dt.day
+    data['dayofweek'] = data['date'].dt.dayofweek
+    data['quarter'] = data['date'].dt.quarter
+    data['week_of_month'] = data['day'].apply(lambda x: np.ceil(x / 7)).astype(np.int8)
+    data['is_weekend'] = (data['dayofweek'] > 5).astype(np.int8)
+    
+    return data
+
 
 # Plot and test stationary
 def test_stationarity(timeseries):
