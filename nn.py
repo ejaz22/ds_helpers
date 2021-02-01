@@ -1,3 +1,5 @@
+import numpy as np
+import keras
 # Feature importance in Neural Network
 
 def garson(A, B):
@@ -23,6 +25,7 @@ def garson(A, B):
     ri = rc / rc.sum()
     return(ri)
 
+# callback to compute garson
 class VarImpGarson(keras.callbacks.Callback):
     def __init__(self, verbose=0):
         self.verbose = verbose
