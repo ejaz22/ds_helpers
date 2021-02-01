@@ -1,29 +1,6 @@
 import numpy as np
 import pandas as pd
-
-def garson(A, B):
-    """
-    Computes Garson's algorithm
-    A = matrix of weights of input-hidden layer (rows=input & cols=hidden)
-    B = vector of weights of hidden-output layer
-    """
-    B = np.diag(B)
-
-    # connection weight through the different hidden node
-    cw = np.dot(A, B)
-
-    # weight through node (axis=0 is column; sum per input feature)
-    cw_h = abs(cw).sum(axis=0)
-
-    # relative contribution of input neuron to outgoing signal of each hidden neuron
-    # sum to find relative contribution of input neuron
-    rc = np.divide(abs(cw), abs(cw_h))
-    rc = rc.sum(axis=1)
-
-    # normalize to 100% for relative importance
-    ri = rc / rc.sum()
-    return(ri)
-
+            
 def median_absolute_deviation(x):
     """
     Returns the median absolute deviation from the window's median
