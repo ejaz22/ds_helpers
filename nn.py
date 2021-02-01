@@ -1,8 +1,21 @@
-import numpy as np
-import keras
 # Feature importance in Neural Network
 
-def garson(A, B):
+import numpy as np
+import keras
+
+def connection_weights(A,B):
+    """
+    Computes Connection weights algorithm
+    A = matrix of weights of input-hidden layer (rows=input & cols=hidden)
+    B = matrix of weights of hidden-output layer (rows=hidden & cols=output)
+    """    
+    cw = np.dot(A, B)
+    
+    # normalize to 100% for relative importance
+    ri = cw / cw.sum()
+    return(ri)
+
+def garson(A,B):
     """
     Computes Garson's algorithm
     A = matrix of weights of input-hidden layer (rows=input & cols=hidden)
