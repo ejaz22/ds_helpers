@@ -25,6 +25,12 @@ def garson(A, B):
     ri = rc / rc.sum()
     return(ri)
 
+# apply garson from Keras model
+A = model.layers[0].get_weights()[0]
+B = model.layers[-1].get_weights()[0]
+d = s{str(i):garson(A,np.transpose(B)[i]) for i in range(B.shape[1])}
+
+
 # callback to compute garson
 class VarImpGarson(keras.callbacks.Callback):
     def __init__(self, verbose=0):
