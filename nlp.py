@@ -1,6 +1,9 @@
 #2. process text - white space, special character etc
 import re
 import nltk
+import math
+from collections import Counter
+from itertools import chain
 
 def norm_docs(doc):
     wp = nltk.WordPunctTokenizer()
@@ -12,13 +15,21 @@ def norm_docs(doc):
     doc = ' '.join(filtered_tokens)
     return doc
 
-# 2. get consine similary between two text
-import math
-import re
-from collections import Counter
+def top_n(docs,n=10):
+    """ Returns top 10 words from a pandas series"""
+    assert docs.__class__.__name__ == 'Series', 'Input is not a pandas series'
+    words_counts = Counter(chain.from_iterable([i.split(" ") for i in docs]))
+    return sorted(words_counts.items(), key=lambda x: x[1], reverse=True)[:n]
+
 
 # get cosine similarity
 def get_cosine(text1, text2):
+    """
+    consine similary between two text
+    df['vec1']=df['headline'].apply(lambda x: text_to_vector(x)) 
+    df['vec2']=df['snippet'].apply(lambda x: text_to_vector(x)) 
+    df['simscore']=df.apply(lambda x: get_cosine(x['vec1'],x['vec2']),axis=1)
+    """
     w = re.compile(r"\w+")
     vec1 = Counter(w.findall(text1))
     vec2 = Counter(w.findall(text2))
@@ -33,19 +44,8 @@ def get_cosine(text1, text2):
    
  # cosine similary to compare two documents
 
-df=pd.read_csv('/content/drive/article.csv')
-df['vector1']=df['headline'].apply(lambda x: text_to_vector(x)) 
-df['vector2']=df['snippet'].apply(lambda x: text_to_vector(x)) 
-df['simscore']=df.apply(lambda x: get_cosine(x['vector1'],x['vector2']),axis=1)
 
 
 
-# get top 10 words
-from collections import Counter
-from itertools import chain
 
-def top_n(docs,n=10):
-    """ Returns top 10 words from a pandas series"""
-    assert docs.__class__.__name__ == 'Series', 'Input is not a pandas series'
-    words_counts = Counter(chain.from_iterable([i.split(" ") for i in docs]))
-    return sorted(words_counts.items(), key=lambda x: x[1], reverse=True)[:n]
+
