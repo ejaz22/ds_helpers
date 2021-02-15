@@ -92,3 +92,11 @@ def box_cox_transformation(x: pd.Series) -> Tuple[np.array, float]:
     
 def box_cox_inverse_transformation(x: pd.Series, lambda_value: float) -> pd.Series:
     return inv_boxcox(x, lambda_value)
+
+def median_absolute_deviation(x):
+    """
+    Returns the median absolute deviation from the window's median
+    :param x: Values in the window
+    :return: MAD
+    """
+    return np.median(np.abs(x - np.median(x)))
