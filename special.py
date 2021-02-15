@@ -1,13 +1,6 @@
 import numpy as np
 import pandas as pd
             
-def median_absolute_deviation(x):
-    """
-    Returns the median absolute deviation from the window's median
-    :param x: Values in the window
-    :return: MAD
-    """
-    return np.median(np.abs(x - np.median(x)))
 
 # hampel filter for smoothening of time series data
 def hampel(ts, window_size=5, n=3):
