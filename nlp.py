@@ -1,4 +1,3 @@
-#2. process text - white space, special character etc
 import re
 import nltk
 import math
@@ -22,7 +21,6 @@ def top_n(docs,n=10):
     return sorted(words_counts.items(), key=lambda x: x[1], reverse=True)[:n]
 
 
-# get cosine similarity
 def get_cosine(text1, text2):
     """
     consine similary between two text
@@ -38,11 +36,7 @@ def get_cosine(text1, text2):
     sum1 = sum([vec1[x] ** 2 for x in list(vec1.keys())])
     sum2 = sum([vec2[x] ** 2 for x in list(vec2.keys())])
     denominator = math.sqrt(sum1) * math.sqrt(sum2)
-    return 0.0 if not denominator else float(numerator) / denominator
-
-    
-   
- # cosine similary to compare two documents
+    return 0.0 if not denominator else float(numerator) / denominator    
 
 
 
